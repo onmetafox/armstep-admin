@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -16,7 +16,17 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
+import { useDispatch } from 'react-redux';
+import { signInUserAsync } from 'src/services/auth/authSlice'
+
 const Login = () => {
+  const [name, setName] = useState("");
+  const [pwd, setPwd] = useState("");
+  const dispatch = useDispatch()
+  
+  const signinUser = useCallback(()=>{
+    dispatch(signInUserAsync(name, pwd))
+  }, [name, pwd, dispatch])
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -32,7 +42,7 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput placeholder="User Email" autoComplete="username" value={name} onChange={(e)=>setName(e.target.value)}/>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -42,18 +52,17 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={pwd}
+                        onChange={(e)=>setPwd(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick = {signinUser}>
                           Login
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
                       </CCol>
                     </CRow>
                   </CForm>

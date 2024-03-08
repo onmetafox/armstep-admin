@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   CButton,
   CCard,
@@ -10,11 +10,21 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
+import { useDispatch } from 'react-redux';
+import { signUpUserAsync } from 'src/services/auth/authSlice';
 const Register = () => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [cfm, setCfm] = useState("");
+
+  const createAccount = useCallback(()=>{
+    dispatch(signUpUserAsync({name, email, pwd}))
+  }, [name, dispatch, email, pwd, cfm])
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -29,11 +39,11 @@ const Register = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
+                    <CFormInput placeholder="Username" autoComplete="username" value={name} onChange={(e)=>setName(e.target.value)}/>
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
+                    <CFormInput placeholder="Email" autoComplete="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -43,6 +53,8 @@ const Register = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
+                      value={pwd}
+                      onChange={(e)=>setPwd(e.target.value)}
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
@@ -53,10 +65,12 @@ const Register = () => {
                       type="password"
                       placeholder="Repeat password"
                       autoComplete="new-password"
+                      value={cfm}
+                      onChange={(e)=> setCfm(e.target.value)}
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
+                    <CButton color="success" onClick={createAccount}>Create Account</CButton>
                   </div>
                 </CForm>
               </CCardBody>
