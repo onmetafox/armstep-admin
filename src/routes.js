@@ -1,6 +1,13 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
+const Categories = React.lazy(() => import('./views/categories/Categories'))
+const Contacts = React.lazy(() => import('./views/contacts/Contacts'))
+const Projects = React.lazy(() => import('./views/projects/Projects'))
+const Reviews = React.lazy(() => import('./views/reviews/Reviews'))
+const Services = React.lazy(() => import('./views/services/Services'))
+const Teams = React.lazy(() => import('./views/teams/Teams'))
+const Technologies = React.lazy(() => import('./views/technologies/Technologies'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
@@ -53,6 +60,13 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/categories', name: 'categories', element: Categories },
+  { path: '/contacts', name: 'Contacts', element: Contacts },
+  { path: '/projects', name: 'Projects', element: Projects },
+  { path: '/reviews', name: 'Reviews', element: Reviews },
+  { path: '/services', name: 'Services', element: Services },
+  { path: '/teams', name: 'Teams', element: Teams },
+  { path: '/technologies', name: 'Technologies', element: Technologies },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

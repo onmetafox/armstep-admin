@@ -1,1 +1,24 @@
 // Here you can add other styles
+
+.pagination-item {
+  cursor: pointer;
+}
+.table-striped {
+  text-align: center;
+}
+
+.table-default {
+  vertical-align: middle;
+}
+
+.fileImage {
+  position: relative;
+}
+
+.fileRemoveBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+}

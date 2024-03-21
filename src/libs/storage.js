@@ -17,3 +17,5 @@ const armstepStorage = {
         localStorage.removeItem(key);
     }
 }
+
+export default armstepStorage;

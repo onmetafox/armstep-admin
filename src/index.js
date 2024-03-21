@@ -1,11 +1,15 @@
+import React from 'react'
 import 'react-app-polyfill/stable'
 import 'core-js'
-import React from 'react'
+import { Provider } from 'react-redux'
 import { createRoot } from 'react-dom/client'
+import dotenv from 'dotenv'
+
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { Provider } from 'react-redux'
 import store from './store'
+
+dotenv.config()
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

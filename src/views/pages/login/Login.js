@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, {useCallback, useState} from 'react'
+import {Link} from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -14,19 +14,20 @@ import {
   CRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import {cilLockLocked, cilUser} from '@coreui/icons'
 
-import { useDispatch } from 'react-redux';
-import { signInUserAsync } from 'src/services/auth/authSlice'
+import {useDispatch} from 'react-redux';
+import {signInUserAsync} from 'src/services/auth/authSlice';
 
 const Login = () => {
-  const [name, setName] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
   const dispatch = useDispatch()
-  
-  const signinUser = useCallback(()=>{
-    dispatch(signInUserAsync(name, pwd))
-  }, [name, pwd, dispatch])
+
+  const signinUser = useCallback(() => {
+    dispatch(signInUserAsync({email, password}))
+  }, [email, password, dispatch]);
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -40,25 +41,26 @@ const Login = () => {
                     <p className="text-medium-emphasis">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                        <CIcon icon={cilUser}/>
                       </CInputGroupText>
-                      <CFormInput placeholder="User Email" autoComplete="username" value={name} onChange={(e)=>setName(e.target.value)}/>
+                      <CFormInput placeholder="User Email" autoComplete="username" value={email}
+                                  onChange={(e) => setEmail(e.target.value)}/>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
+                        <CIcon icon={cilLockLocked}/>
                       </CInputGroupText>
                       <CFormInput
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
-                        value={pwd}
-                        onChange={(e)=>setPwd(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4" onClick = {signinUser}>
+                        <CButton color="primary" className="px-4" onClick={signinUser}>
                           Login
                         </CButton>
                       </CCol>
@@ -68,7 +70,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              <CCard className="text-white bg-primary py-5" style={{width: '44%'}}>
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
