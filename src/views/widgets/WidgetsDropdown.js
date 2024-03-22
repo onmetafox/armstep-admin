@@ -24,24 +24,11 @@ const WidgetsDropdown = () => {
             <>
               26K{' '}
               <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
+                (+12.4% <CIcon icon={cilArrowTop} />)
               </span>
             </>
           }
-          title="Users"
-          action={
-            <CDropdown alignment="end">
-              <CDropdownToggle color="transparent" caret={false} className="p-0">
-                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          }
+          title="Categories"
           chart={
             <CChartLine
               className="mt-3 mx-3"
@@ -54,7 +41,7 @@ const WidgetsDropdown = () => {
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-primary'),
-                    data: [65, 59, 84, 84, 51, 55, 40],
+                    data: [51, 55, 40, 65, 59, 84, 84],
                   },
                 ],
               }}
@@ -109,26 +96,13 @@ const WidgetsDropdown = () => {
           color="info"
           value={
             <>
-              $6.200{' '}
+              6.200{' '}
               <span className="fs-6 fw-normal">
                 (40.9% <CIcon icon={cilArrowTop} />)
               </span>
             </>
           }
-          title="Income"
-          action={
-            <CDropdown alignment="end">
-              <CDropdownToggle color="transparent" caret={false} className="p-0">
-                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          }
+          title="Contacts"
           chart={
             <CChartLine
               className="mt-3 mx-3"
@@ -195,26 +169,13 @@ const WidgetsDropdown = () => {
           color="warning"
           value={
             <>
-              2.49{' '}
+              249{' '}
               <span className="fs-6 fw-normal">
                 (84.7% <CIcon icon={cilArrowTop} />)
               </span>
             </>
           }
-          title="Conversion Rate"
-          action={
-            <CDropdown alignment="end">
-              <CDropdownToggle color="transparent" caret={false} className="p-0">
-                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          }
+          title="Projects"
           chart={
             <CChartLine
               className="mt-3"
@@ -268,26 +229,13 @@ const WidgetsDropdown = () => {
           color="danger"
           value={
             <>
-              44K{' '}
+              8547{' '}
               <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
+                (-17.8% <CIcon icon={cilArrowBottom} />)
               </span>
             </>
           }
-          title="Sessions"
-          action={
-            <CDropdown alignment="end">
-              <CDropdownToggle color="transparent" caret={false} className="p-0">
-                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-          }
+          title="Reviews"
           chart={
             <CChartBar
               className="mt-3 mx-3"
@@ -354,6 +302,275 @@ const WidgetsDropdown = () => {
           }
         />
       </CCol>
+      <CCol sm={6} lg={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="success"
+          value={
+            <>
+              4400{' '}
+              <span className="fs-6 fw-normal">
+                (-23.6% <CIcon icon={cilArrowBottom} />)
+              </span>
+            </>
+          }
+          title="Services"
+          chart={
+            <CChartBar
+              className="mt-3 mx-3"
+              style={{ height: '70px' }}
+              data={{
+                labels: [
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                ],
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'rgba(255,255,255,.2)',
+                    borderColor: 'rgba(255,255,255,.55)',
+                    data: [12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 45, 34, 82,78, 81, 100 ],
+                    barPercentage: 0.6,
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                      drawBorder: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+            />
+          }
+        />
+      </CCol>
+
+      <CCol sm={6} lg={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="warning"
+          value={
+            <>
+              150{' '}
+              <span className="fs-6 fw-normal">
+                (+10% <CIcon icon={cilArrowTop} />)
+              </span>
+            </>
+          }
+          title="Teams"
+          chart={
+            <CChartBar
+              className="mt-3 mx-3"
+              style={{ height: '70px' }}
+              data={{
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'rgba(255,255,255,.2)',
+                    borderColor: 'rgba(255,255,255,.55)',
+                    data: [45, 34, 12, 40, 78, 81, 80],
+                    fill: true,
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                      drawBorder: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+            />
+          }
+        />
+      </CCol>
+
+      <CCol sm={6} lg={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="secondary"
+          value={
+            <>
+              864{' '}
+              <span className="fs-6 fw-normal">
+                (+20% <CIcon icon={cilArrowTop} />)
+              </span>
+            </>
+          }
+          title="Tehnologies"
+          chart={
+            <CChartBar
+              className="mt-3 mx-3"
+              style={{ height: '70px' }}
+              data={{
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'rgba(255,255,255,.2)',
+                    borderColor: 'rgba(255,255,255,.55)',
+                    data: [45, 34, 12, 40, 78, 81, 80],
+                    fill: true,
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                      drawBorder: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+            />
+          }
+        />
+      </CCol>
+
+      <CCol sm={6} lg={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="success"
+          value={
+            <>
+              10k{' '}
+              <span className="fs-6 fw-normal">
+                (+13.25% <CIcon icon={cilArrowTop} />)
+              </span>
+            </>
+          }
+          title="Users"
+          chart={
+            <CChartBar
+              className="mt-3 mx-3"
+              style={{ height: '70px' }}
+              data={{
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'rgba(255,255,255,.2)',
+                    borderColor: 'rgba(255,255,255,.55)',
+                    data: [45, 34, 12, 40, 78, 81, 80],
+                    fill: true,
+                  },
+                ],
+              }}
+              options={{
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                      drawBorder: false,
+                      drawTicks: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+            />
+          }
+        />
+      </CCol>
+
     </CRow>
   )
 }

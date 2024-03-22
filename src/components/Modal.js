@@ -13,7 +13,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
 import {createCategory, fileUpload, updateCategory} from "../services/category/category";
-import defaultIcon from "../assets/images/default.png";
+import getCompletedURL from "../libs/getCompleteURL";
 
 export default function Modal(props) {
 
@@ -125,9 +125,9 @@ export default function Modal(props) {
                 {finalFiles && finalFiles.map((file, index) => (
                   <div key={index} className="d-flex flex-column justify-content-center align-items-center mx-1">
                     <div className="fileImage">
-                      <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                      <CImage align="center" src={getCompletedURL(file.icon)} width={30} height={30}/>
                       {props.data ? <CIcon icon={cilXCircle} onClick={() => handleFileRemove(file)}
-                                           className="fileRemoveBtn"/> : ""}
+                                           className="text-danger fileRemoveBtn"/> : ""}
                     </div>
                     <CFormLabel htmlFor="floatingInput" className="small">{file.title}</CFormLabel>
                   </div>

@@ -14,8 +14,8 @@ import {
 import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
 
-import defaultIcon from "../../assets/images/default.png"
 import {createReview, reviewFileUpload, updateReview} from "../../services/review/review";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function ReviewModal(props) {
 
@@ -111,9 +111,9 @@ export default function ReviewModal(props) {
               <CFormInput type="file" className="mb-3" id="formLogoFile" onChange={handleLogo}/>
               {logo ? <div className="d-flex justify-content-start align-items-center mx-1">
                 <div className="fileImage">
-                  <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                  <CImage align="center" src={getCompletedURL(logo)} width={30} height={30}/>
                   <CIcon icon={cilXCircle} onClick={() => setLogo("")}
-                         className="fileRemoveBtn"/>
+                         className="text-danger fileRemoveBtn"/>
                 </div>
               </div> : ""}
             </div>

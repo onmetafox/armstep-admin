@@ -3,10 +3,10 @@ import {CButton, CFormSwitch, CImage} from "@coreui/react";
 
 import InfoTable from "../../components/InfoTable";
 import ActionButtons from "../../components/ActionButtons";
-import defaultIcon from "../../assets/images/default.png";
 import {ServiceColumns} from "./ServiceColumns";
 import ServiceModal from "./ServiceModal";
 import {getServices} from "../../services/service/service";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function Services() {
   const [items, setItems] = useState([]);
@@ -25,14 +25,14 @@ export default function Services() {
       let tempItems = [];
       allServices.forEach(service =>
         tempItems.push({
-          icon: <CImage align="center" src={defaultIcon} width={30} height={30}/>,
+          icon: <CImage align="center" src={getCompletedURL(service.icon)} width={30} height={30}/>,
           title: service.title,
           subtitle: service.subtitle,
           intro: service.intro,
           detail: service.detail,
           content: service.content,
           subcontent: service.subcontent,
-          category: "",
+          category: service.category.map(item => item.title).join(","),
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
           action: <ActionButtons record={service} type="service"/>,

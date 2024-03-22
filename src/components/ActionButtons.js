@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import ProjectModal from "../views/projects/ProjectModal";
 import ReviewModal from "../views/reviews/ReviewModal";
 import TeamModal from "../views/teams/TeamModal";
+import ServiceModal from "../views/services/ServiceModal";
+import TechnologyModal from "../views/technologies/TechnologyModal";
 
 export default function ActionButtons(props) {
   const [show, setShow] = useState(false);
@@ -21,11 +23,11 @@ export default function ActionButtons(props) {
     } else if (props.type === "review") {
       setModalSection(<ReviewModal visible={visible} setVisible={setVisible} data={props.record}/>);
     } else if (props.type === "service") {
-
+      setModalSection(<ServiceModal visible={visible} setVisible={setVisible} data={props.record}/>);
     } else if (props.type === "team") {
       setModalSection(<TeamModal visible={visible} setVisible={setVisible} data={props.record}/>);
     } else if (props.type === "technology") {
-
+      setModalSection(<TechnologyModal visible={visible} setVisible={setVisible} data={props.record}/>);
     }
   }, [visible, setVisible, show, setShow]);
 

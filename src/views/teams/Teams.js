@@ -3,11 +3,11 @@ import {CButton, CFormSwitch, CImage} from "@coreui/react";
 
 import InfoTable from "../../components/InfoTable";
 import ActionButtons from "../../components/ActionButtons";
-import defaultIcon from "../../assets/images/default.png";
 import {getTeams} from "../../services/team/team";
 import {TeamColumns} from "./TeamColumns";
 import TeamModal from "./TeamModal";
 import TableCellStacks from "./TableCellStacks";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function Teams() {
   const [items, setItems] = useState([]);
@@ -28,7 +28,7 @@ export default function Teams() {
         tempItems.push({
           name: team.name,
           role: team.role,
-          avatar: <CImage align="center" src={defaultIcon} width={30} height={30}/>,
+          avatar: <CImage align="center" src={getCompletedURL(team.imgUrl)} width={30} height={30}/>,
           upwork: team.upwork,
           linkedin: team.linkedin,
           contra: team.contra,

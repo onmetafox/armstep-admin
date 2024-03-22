@@ -13,8 +13,8 @@ import {
 } from "@coreui/react";
 import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
-import defaultIcon from "../../assets/images/default.png"
 import {createProject, projectFileUpload, updateProject} from "../../services/project/project";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 function beautifulArray(value) {
   const array = value.split(",").filter(item => item !== "")
@@ -45,7 +45,7 @@ export default function ProjectModal(props) {
       formData.append("file", thumbFile);
       try {
         projectFileUpload(formData).then(res => {
-          setThumb(res.data.data.path)
+          setThumb(res.data.data)
           setThumbFile(null);
           document.getElementById("formThumbFile").value = "";
         })
@@ -61,7 +61,7 @@ export default function ProjectModal(props) {
       formData.append("file", imgFile);
       try {
         projectFileUpload(formData).then(res => {
-          setImg(res.data.data.path)
+          setImg(res.data.data)
           setImgFile(null);
           document.getElementById("formImgFile").value = "";
         })
@@ -159,9 +159,9 @@ export default function ProjectModal(props) {
               <CFormInput type="file" className="mb-3" id="formThumbFile" onChange={handleThumb}/>
               {thumb ? <div className="d-flex justify-content-start align-items-center mx-1">
                 <div className="fileImage">
-                  <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                  <CImage align="center" src={getCompletedURL(thumb)} width={30} height={30}/>
                   <CIcon icon={cilXCircle} onClick={() => setThumb("")}
-                         className="fileRemoveBtn"/>
+                         className="text-danger fileRemoveBtn"/>
                 </div>
               </div> : ""}
             </div>
@@ -170,9 +170,9 @@ export default function ProjectModal(props) {
               <CFormInput type="file" className="mb-3" id="formImgFile" onChange={handleImg}/>
               {img ? <div className="d-flex justify-content-start align-items-center mx-1">
                 <div className="fileImage">
-                  <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                  <CImage align="center" src={getCompletedURL(img)} width={30} height={30}/>
                   <CIcon icon={cilXCircle} onClick={() => setImg("")}
-                         className="fileRemoveBtn"/>
+                         className="text-danger fileRemoveBtn"/>
                 </div>
               </div> : ""}
             </div>

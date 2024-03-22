@@ -6,7 +6,7 @@ import ActionButtons from "../../components/ActionButtons";
 import {ProjectColumns} from "./ProjectColumns";
 import ProjectModal from "./ProjectModal";
 import {getProjects} from "../../services/project/project";
-import defaultIcon from "../../assets/images/default.png";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function Projects() {
   const [items, setItems] = useState([]);
@@ -26,8 +26,8 @@ export default function Projects() {
       allProjects.forEach(project =>
         tempItems.push({
           title: project.title,
-          thumb: <CImage align="center" src={defaultIcon} width={30} height={30}/>,
-          img: <CImage align="center" src={defaultIcon} width={30} height={30}/>,
+          thumb: <CImage align="center" src={getCompletedURL(project.thumb)} width={30} height={30}/>,
+          img: <CImage align="center" src={getCompletedURL(project.img)} width={30} height={30}/>,
           services: project.services,
           industry: project.industry,
           platform: project.platform,

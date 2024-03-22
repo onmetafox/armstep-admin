@@ -10,6 +10,8 @@ import {removeCategory} from "../services/category/category";
 import {removeProject} from "../services/project/project";
 import {removeReview} from "../services/review/review";
 import {removeTeam} from "../services/team/team";
+import {removeService} from "../services/service/service";
+import {removeTechnology} from "../services/technology/technology";
 
 export default function SimpleModal(props) {
 
@@ -35,6 +37,18 @@ export default function SimpleModal(props) {
         })
       } else if (props.type === "team") {
         removeTeam(props.id).then(res => {
+          props.setShow(false);
+          console.log(res);
+          window.location.reload();
+        })
+      } else if (props.type === "service") {
+        removeService(props.id).then(res => {
+          props.setShow(false);
+          console.log(res);
+          window.location.reload();
+        })
+      } else if (props.type === "technology") {
+        removeTechnology(props.id).then(res => {
           props.setShow(false);
           console.log(res);
           window.location.reload();

@@ -4,7 +4,6 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
-  CFormTextarea,
   CImage,
   CModal,
   CModalBody,
@@ -16,21 +15,15 @@ import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
 import {MultiSelect} from "react-multi-select-component";
 
-import {projectFileUpload} from "../../services/project/project";
 import {getCategories} from "../../services/category/category";
-import {createService, updateService} from "../../services/service/service";
 import getCompletedURL from "../../libs/getCompleteURL";
+import {createTechnology, techFileUpload, updateTechnology} from "../../services/technology/technology";
 
-export default function ServiceModal(props) {
+export default function TechnologyModal(props) {
 
   const [title, setTitle] = useState(props.data ? props.data.title : "");
-  const [subTitle, setSubTitle] = useState(props.data ? props.data.subtitle : "");
-  const [icon, setIcon] = useState(props.data ? props.data.icon : "");
-  const [intro, setIntro] = useState(props.data ? props.data.intro : "");
-  const [detail, setDetail] = useState(props.data ? props.data.detail : "");
-  const [content, setContent] = useState(props.data ? props.data.content : "");
-  const [subContent, setSubContent] = useState(props.data ? props.data.subcontent : "");
-  const [iconFile, setIconFile] = useState(null);
+  const [logo, setLogo] = useState(props.data ? props.data.logo : "");
+  const [logoFile, setLogoFile] = useState(null);
   const [categories, setCategories] = useState(props.data ? props.data.category : []);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [entireCategories, setEntireCategories] = useState([]);
@@ -68,33 +61,28 @@ export default function ServiceModal(props) {
   }, [selectedCategories]);
 
   useEffect(() => {
-    if (iconFile) {
+    if (logoFile) {
       const formData = new FormData();
-      formData.append("file", iconFile);
+      formData.append("file", logoFile);
       try {
-        projectFileUpload(formData).then(res => {
-          setIcon(res.data.data)
-          setIconFile(null);
-          document.getElementById("formIconFile").value = "";
+        techFileUpload(formData).then(res => {
+          setLogo(res.data.data)
+          setLogoFile(null);
+          document.getElementById("formLogoFile").value = "";
         })
       } catch (err) {
         console.log(err)
       }
     }
-  }, [iconFile]);
+  }, [logoFile]);
 
   const handleSave = () => {
-    if (title !== "" && subTitle !== "" && icon !== "" && intro !== "" && detail !== "" && content !== "" && subContent !== "" && categories !== []) {
+    if (title !== "" && logo !== "" && categories !== []) {
       if (props.data) {
         try {
-          updateService(props.data._id, {
+          updateTechnology(props.data._id, {
             title,
-            subtitle: subTitle,
-            icon,
-            intro,
-            detail,
-            content,
-            subcontent: subContent,
+            logo,
             category: categories.map(item => item._id),
             status: 1
           }).then(res => {
@@ -107,14 +95,9 @@ export default function ServiceModal(props) {
         }
       } else {
         try {
-          createService({
+          createTechnology({
             title,
-            subtitle: subTitle,
-            icon,
-            intro,
-            detail,
-            content,
-            subcontent: subContent,
+            logo,
             category: categories.map(item => item._id),
             status: 1,
           }).then(res => {
@@ -130,7 +113,7 @@ export default function ServiceModal(props) {
   }
 
   const handleIcon = (e) => {
-    setIconFile(e.target.files[0])
+    setLogoFile(e.target.files[0])
   }
 
   return (
@@ -143,7 +126,7 @@ export default function ServiceModal(props) {
         aria-labelledby="VerticallyCenteredExample"
       >
         <CModalHeader>
-          <CModalTitle id="VerticallyCenteredExample">{props.data ? "Edit Service" : "New Service"}</CModalTitle>
+          <CModalTitle id="VerticallyCenteredExample">{props.data ? "Edit Technology" : "New Technology"}</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CForm>
@@ -153,42 +136,18 @@ export default function ServiceModal(props) {
                           onChange={(e) => setTitle(e.target.value)}/>
             </div>
             <div className="mb-3">
-              <CFormLabel htmlFor="exampleFormControlInput1">SubTitle</CFormLabel>
-              <CFormInput type="text" id="exampleFormControlInput1" placeholder="Input title" value={subTitle}
-                          onChange={(e) => setSubTitle(e.target.value)}/>
-            </div>
-            <div className="mb-3">
               <CFormLabel htmlFor="formFileMultiple">Icon</CFormLabel>
-              <CFormInput type="file" className="mb-3" id="formIconFile" onChange={handleIcon}/>
-              {icon ? <div className="d-flex justify-content-start align-items-center mx-1">
+              <CFormInput type="file" className="mb-3" id="formLogoFile" onChange={handleIcon}/>
+              {logo ? <div className="d-flex justify-content-start align-items-center mx-1">
                 <div className="fileImage">
-                  <CImage align="center" src={getCompletedURL(icon)} width={30} height={30}/>
-                  <CIcon icon={cilXCircle} onClick={() => setIcon("")}
+                  <CImage align="center" src={getCompletedURL(logo)} width={30} height={30}/>
+                  <CIcon icon={cilXCircle} onClick={() => setLogo("")}
                          className="text-danger fileRemoveBtn"/>
                 </div>
               </div> : ""}
             </div>
             <div className="mb-3">
-              <CFormLabel htmlFor="exampleFormControlTextarea1">Intro</CFormLabel>
-              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={intro}
-                             onChange={(e) => setIntro(e.target.value)}/>
-            </div>
-            <div className="mb-3">
-              <CFormLabel htmlFor="exampleFormControlTextarea1">Detail</CFormLabel>
-              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={detail}
-                             onChange={(e) => setDetail(e.target.value)}/>
-            </div>
-            <div className="mb-3">
-              <CFormLabel htmlFor="exampleFormControlTextarea1">Content</CFormLabel>
-              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={content}
-                             onChange={(e) => setContent(e.target.value)}/>
-            </div>
-            <div className="mb-3">
-              <CFormLabel htmlFor="exampleFormControlTextarea1">SubContent</CFormLabel>
-              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={subContent}
-                             onChange={(e) => setSubContent(e.target.value)}/>
-            </div>
-            <div className="mb-3">
+              <CFormLabel htmlFor="formFileMultiple">Category</CFormLabel>
               <MultiSelect
                 options={categoryOptions}
                 value={selectedCategories}

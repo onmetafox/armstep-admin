@@ -18,7 +18,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'categories',
+    name: 'Categories',
     to: '/categories',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />
   },

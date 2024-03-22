@@ -15,7 +15,7 @@ import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
 
 import {createTeam, teamFileUpload, updateTeam} from "../../services/team/team";
-import defaultIcon from "../../assets/images/default.png"
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function TeamModal(props) {
 
@@ -157,9 +157,9 @@ export default function TeamModal(props) {
               <CFormInput type="file" className="mb-3" id="formAvatarFile" onChange={handleAvatar}/>
               {imgUrl ? <div className="d-flex justify-content-start align-items-center mx-1">
                 <div className="fileImage">
-                  <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                  <CImage align="center" src={getCompletedURL(imgUrl)} width={30} height={30}/>
                   <CIcon icon={cilXCircle} onClick={() => setImgUrl("")}
-                         className="fileRemoveBtn"/>
+                         className="text-danger fileRemoveBtn"/>
                 </div>
               </div> : ""}
             </div>
@@ -193,9 +193,9 @@ export default function TeamModal(props) {
                 {stacks && stacks.map((file, index) => (
                   <div key={index} className="d-flex flex-column justify-content-center align-items-center mx-1">
                     <div className="fileImage">
-                      <CImage align="center" src={defaultIcon} width={30} height={30}/>
+                      <CImage align="center" src={getCompletedURL(file.icon)} width={30} height={30}/>
                       <CIcon icon={cilXCircle} onClick={() => handleFileRemove(file)}
-                             className="fileRemoveBtn"/>
+                             className="text-danger fileRemoveBtn"/>
                     </div>
                     <CFormLabel htmlFor="floatingInput" className="small">{file.heading}</CFormLabel>
                   </div>

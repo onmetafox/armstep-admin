@@ -19,7 +19,6 @@ export const AuthContextProvider = ({ children }) => {
     setToken(localStorage.getItem('token'));
     let token = localStorage.getItem('token');
     const decodedJwt = parseJwt(token);
-
     if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
       navigate("/login", {replace: true})
     }

@@ -3,10 +3,10 @@ import {CButton, CFormSwitch, CImage} from "@coreui/react";
 
 import InfoTable from "../../components/InfoTable";
 import ActionButtons from "../../components/ActionButtons";
-import defaultIcon from "../../assets/images/default.png";
 import {ReviewColumns} from "./ReviewColumns";
 import {getReviews} from "../../services/review/review";
 import ReviewModal from "./ReviewModal";
+import getCompletedURL from "../../libs/getCompleteURL";
 
 export default function Reviews() {
   const [items, setItems] = useState([]);
@@ -25,7 +25,7 @@ export default function Reviews() {
       let tempItems = [];
       allReviews.forEach(review =>
         tempItems.push({
-          logo: <CImage align="center" src={defaultIcon} width={30} height={30}/>,
+          logo: <CImage align="center" src={getCompletedURL(review.logo)} width={30} height={30}/>,
           user: review.user,
           company: review.company,
           review: review.review,
