@@ -26,7 +26,7 @@ export default function Reviews() {
       allReviews.forEach(review =>
         tempItems.push({
           logo: <CImage align="center" src={getCompletedURL(review.logo)} width={30} height={30}/>,
-          user: review.user,
+          user: <CImage align="center" src={getCompletedURL(review.user)} width={30} height={30}/>,
           company: review.company,
           review: review.review,
           name: review.name,

@@ -7,6 +7,7 @@ import {ProjectColumns} from "./ProjectColumns";
 import ProjectModal from "./ProjectModal";
 import {getProjects} from "../../services/project/project";
 import getCompletedURL from "../../libs/getCompleteURL";
+import truncateString from "../../libs/truncateString";
 
 export default function Projects() {
   const [items, setItems] = useState([]);
@@ -31,12 +32,13 @@ export default function Projects() {
           services: project.services,
           industry: project.industry,
           platform: project.platform,
-          overview: project.overview,
+          client: truncateString(project.client, 30),
+          overview: truncateString(project.overview, 50),
           link: project.link,
           team: project.team.join(","),
           duration: project.duration,
           stacks: project.stacks.join(","),
-          result: project.result,
+          result: truncateString(project.result, 50),
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
           action: <ActionButtons record={project} type="project"/>,

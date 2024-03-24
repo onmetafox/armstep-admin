@@ -5,6 +5,7 @@ export const ProjectColumns = [
   { key: 'services', label: 'Services', _props: { scope: 'col' } },
   { key: 'industry', label: 'Industry', _props: { scope: 'col' } },
   { key: 'platform', label: 'Platform', _props: { scope: 'col' } },
+  { key: 'client', label: 'Client', _props: { scope: 'col' } },
   { key: 'overview', label: 'Overview', _props: { scope: 'col' } },
   { key: 'link', label: 'Link', _props: { scope: 'col' } },
   { key: 'team', label: 'Team', _props: { scope: 'col' } },

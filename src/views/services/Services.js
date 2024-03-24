@@ -7,6 +7,7 @@ import {ServiceColumns} from "./ServiceColumns";
 import ServiceModal from "./ServiceModal";
 import {getServices} from "../../services/service/service";
 import getCompletedURL from "../../libs/getCompleteURL";
+import truncateString from "../../libs/truncateString";
 
 export default function Services() {
   const [items, setItems] = useState([]);
@@ -28,10 +29,10 @@ export default function Services() {
           icon: <CImage align="center" src={getCompletedURL(service.icon)} width={30} height={30}/>,
           title: service.title,
           subtitle: service.subtitle,
-          intro: service.intro,
-          detail: service.detail,
-          content: service.content,
-          subcontent: service.subcontent,
+          intro: truncateString(service.intro, 50),
+          detail: truncateString(service.detail, 50),
+          content: truncateString(service.content, 50),
+          subcontent: truncateString(service.subcontent, 50),
           category: service.category.map(item => item.title).join(","),
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,

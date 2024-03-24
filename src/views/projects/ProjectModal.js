@@ -3,7 +3,7 @@ import {
   CButton,
   CForm,
   CFormInput,
-  CFormLabel,
+  CFormLabel, CFormTextarea,
   CImage,
   CModal,
   CModalBody,
@@ -193,13 +193,13 @@ export default function ProjectModal(props) {
             </div>
             <div className="mb-3">
               <CFormLabel htmlFor="exampleFormControlInput1">Client</CFormLabel>
-              <CFormInput type="text" id="exampleFormControlInput1" placeholder="Input platform" value={client}
-                          onChange={(e) => setClient(e.target.value)}/>
+              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={client} placeholder="Input client"
+                             onChange={(e) => setClient(e.target.value)}/>
             </div>
             <div className="mb-3">
               <CFormLabel htmlFor="exampleFormControlInput1">Overview</CFormLabel>
-              <CFormInput type="text" id="exampleFormControlInput1" placeholder="Input overview" value={overview}
-                          onChange={(e) => setOverview(e.target.value)}/>
+              <CFormTextarea id="exampleFormControlTextarea1" rows={3} value={overview} placeholder="Input overview"
+                             onChange={(e) => setOverview(e.target.value)}/>
             </div>
             <div className="mb-3">
               <CFormLabel htmlFor="exampleFormControlInput1">Link</CFormLabel>

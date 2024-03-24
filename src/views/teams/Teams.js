@@ -8,6 +8,7 @@ import {TeamColumns} from "./TeamColumns";
 import TeamModal from "./TeamModal";
 import TableCellStacks from "./TableCellStacks";
 import getCompletedURL from "../../libs/getCompleteURL";
+import truncateString from "../../libs/truncateString";
 
 export default function Teams() {
   const [items, setItems] = useState([]);
@@ -32,7 +33,7 @@ export default function Teams() {
           upwork: team.upwork,
           linkedin: team.linkedin,
           contra: team.contra,
-          about: team.about,
+          about: truncateString(team.about, 50),
           stacks: <TableCellStacks stacks={team.stacks}/>,
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,

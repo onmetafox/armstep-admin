@@ -47,7 +47,7 @@ export default function InfoTable(props) {
     }
 
     return (
-        <>
+        <div className="infoTable">
             <CTable striped columns={props.columns} items={props.items} tableHeadProps={{color: 'dark'}}
                     captionTop={`List of ${pathArray[1]}`} responsive="md"/>
             <CPagination align="end" aria-label="Page navigation example">
@@ -64,7 +64,7 @@ export default function InfoTable(props) {
                 <CPaginationItem className="pagination-item" disabled={endIndex === pageCount}
                                  onClick={nextPage}>Next</CPaginationItem>
             </CPagination>
-        </>
+        </div>
     )
 }
 
