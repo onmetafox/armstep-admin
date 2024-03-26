@@ -11,12 +11,13 @@ import Modal from "../../components/Modal";
 export default function Categories() {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
 
   const handleNew = () => {
     setVisible(!visible);
   }
 
-  useEffect(() => {
+  function getAllCategories() {
     getCategories({
       page: 1,
       pageSize: 20
@@ -30,13 +31,25 @@ export default function Categories() {
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
           icons: <TableCellIcons icons={category.icons}/>,
-          action: <ActionButtons record={category} type="category"/>,
+          action: <ActionButtons record={category} type="category" statusChanged={statusChanged}
+                                 setStatusChanged={setStatusChanged}/>,
           _cellProps: {class: {scope: 'row'}},
           _props: {color: 'default'},
         })
       )
       setItems(tempItems);
     })
+  }
+
+  useEffect(() => {
+    if (statusChanged) {
+      getAllCategories();
+    }
+    setStatusChanged(false);
+  }, [statusChanged]);
+
+  useEffect(() => {
+    getAllCategories();
   }, []);
 
   return (
@@ -45,7 +58,8 @@ export default function Categories() {
         <CButton color="primary" onClick={handleNew}>Add New Category</CButton>
       </div>
       <InfoTable columns={CategoryColumns} items={items}/>
-      <Modal visible={visible} setVisible={setVisible}/>
+      <Modal visible={visible} setVisible={setVisible} statusChanged={statusChanged}
+             setStatusChanged={setStatusChanged}/>
     </div>
   )
 }

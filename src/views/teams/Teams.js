@@ -13,12 +13,13 @@ import truncateString from "../../libs/truncateString";
 export default function Teams() {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
 
   const handleNew = () => {
     setVisible(!visible);
   }
 
-  useEffect(() => {
+  const getAllTeams = () => {
     getTeams({
       page: 1,
       pageSize: 20
@@ -37,14 +38,26 @@ export default function Teams() {
           stacks: <TableCellStacks stacks={team.stacks}/>,
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
-          action: <ActionButtons record={team} type="team"/>,
+          action: <ActionButtons record={team} type="team" statusChange={statusChanged}
+                                 setStatusChanged={setStatusChanged}/>,
           _cellProps: {class: {scope: 'row'}},
           _props: {color: 'default'},
         })
       )
       setItems(tempItems);
     })
+  }
+
+  useEffect(() => {
+    getAllTeams();
   }, []);
+
+  useEffect(() => {
+    if (statusChanged) {
+      getAllTeams();
+    }
+    setStatusChanged(false);
+  }, [statusChanged]);
 
   return (
     <div className="border border-dark border-1 rounded p-3">
@@ -52,7 +65,8 @@ export default function Teams() {
         <CButton color="primary" onClick={handleNew}>Add New Team</CButton>
       </div>
       <InfoTable columns={TeamColumns} items={items}/>
-      <TeamModal visible={visible} setVisible={setVisible}/>
+      <TeamModal visible={visible} setVisible={setVisible} statusChanged={statusChanged}
+                 setStatusChanged={setStatusChanged}/>
     </div>
   )
 }

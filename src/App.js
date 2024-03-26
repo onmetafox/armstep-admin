@@ -1,8 +1,10 @@
 import React, {Suspense} from 'react'
 import {Route, Routes, BrowserRouter} from 'react-router-dom'
 
-import './scss/style.scss'
 import {AuthContextProvider} from "./providers/authContext";
+import {AlertContextProvider} from "./providers/alertContext";
+
+import './scss/style.scss'
 
 
 const loading = (
@@ -25,18 +27,20 @@ export default function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={loading}>
-        <AuthContextProvider>
-          <Routes>
-            <Route exact path="/login" name="Login Page" element={<Login/>}/>
-            <Route exact path="/register" name="Register Page" element={<Register/>}/>
-            <Route exact path="/404" name="Page 404" element={<Page404/>}/>
-            <Route exact path="/500" name="Page 500" element={<Page500/>}/>
-            <Route path="*" name="Home" element={<DefaultLayout/>}/>
-          </Routes>
-          }
+        <AlertContextProvider>
+          <AuthContextProvider>
+            <Routes>
+              <Route exact path="/login" name="Login Page" element={<Login/>}/>
+              <Route exact path="/register" name="Register Page" element={<Register/>}/>
+              <Route exact path="/404" name="Page 404" element={<Page404/>}/>
+              <Route exact path="/500" name="Page 500" element={<Page500/>}/>
+              <Route path="*" name="Home" element={<DefaultLayout/>}/>
+            </Routes>
+            }
           </AuthContextProvider>
+        </AlertContextProvider>
       </Suspense>
     </BrowserRouter>
-)
+  )
 }
 

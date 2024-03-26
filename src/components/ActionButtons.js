@@ -17,17 +17,17 @@ export default function ActionButtons(props) {
 
   useEffect(() => {
     if (props.type === "category") {
-      setModalSection(<Modal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<Modal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     } else if (props.type === "project") {
-      setModalSection(<ProjectModal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<ProjectModal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     } else if (props.type === "review") {
-      setModalSection(<ReviewModal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<ReviewModal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     } else if (props.type === "service") {
-      setModalSection(<ServiceModal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<ServiceModal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     } else if (props.type === "team") {
-      setModalSection(<TeamModal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<TeamModal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     } else if (props.type === "technology") {
-      setModalSection(<TechnologyModal visible={visible} setVisible={setVisible} data={props.record}/>);
+      setModalSection(<TechnologyModal visible={visible} setVisible={setVisible} data={props.record} statausChanged={props.statusChanged} setStatusChanged={props.setStatusChanged}/>);
     }
   }, [visible, setVisible, show, setShow]);
 
@@ -48,7 +48,8 @@ export default function ActionButtons(props) {
         <CIcon icon={cilDelete}/>
       </CButton>
       {modalSection}
-      <SimpleModal show={show} setShow={setShow} id={props.record._id} type={props.type}/>
+      <SimpleModal show={show} setShow={setShow} id={props.record._id} type={props.type} statusChanged={props.statusChanged}
+                   setStatusChanged={props.setStatusChanged}/>
     </div>
   )
 }

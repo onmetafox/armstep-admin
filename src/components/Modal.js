@@ -14,9 +14,10 @@ import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
 import {createCategory, fileUpload, updateCategory} from "../services/category/category";
 import getCompletedURL from "../libs/getCompleteURL";
+import {useAlertContext} from "../providers/alertContext";
 
 export default function Modal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [title, setTitle] = useState(props.data ? props.data.title : "");
   const [detail, setDetail] = useState(props.data ? props.data.detail : "");
   const [iconTitle, setIconTitle] = useState("");
@@ -52,6 +53,16 @@ export default function Modal(props) {
     }
   }
 
+  const handleInitDialog = () => {
+    setAlertVisible(true);
+    setTitle("");
+    setDetail("");
+    setIconTitle("");
+    setFinalFiles([]);
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (title !== "" && detail !== "") {
       if (props.data) {
@@ -62,9 +73,10 @@ export default function Modal(props) {
             icons: finalFiles,
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -77,9 +89,8 @@ export default function Modal(props) {
             icons: finalFiles,
             status: 1
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitDialog();
           })
         } catch (err) {
           console.log(err)

@@ -12,46 +12,48 @@ import {removeReview} from "../services/review/review";
 import {removeTeam} from "../services/team/team";
 import {removeService} from "../services/service/service";
 import {removeTechnology} from "../services/technology/technology";
+import {useAlertContext} from "../providers/alertContext";
 
 export default function SimpleModal(props) {
+  const {setMessage, setAlertVisible} = useAlertContext();
+
+  const handleActionAfterRemove = () => {
+    props.setShow(false);
+    setAlertVisible(true);
+    props.setStatusChanged(true);
+  }
 
   const removeConfirmed = () => {
     try {
       if (props.type === "category") {
         removeCategory(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         });
       } else if (props.type === "project") {
         removeProject(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         })
       } else if (props.type === "review") {
         removeReview(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         })
       } else if (props.type === "team") {
         removeTeam(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         })
       } else if (props.type === "service") {
         removeService(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         })
       } else if (props.type === "technology") {
         removeTechnology(props.id).then(res => {
-          props.setShow(false);
-          console.log(res);
-          window.location.reload();
+          setMessage(res.data.msg);
+          handleActionAfterRemove();
         })
       }
     } catch (err) {

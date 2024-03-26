@@ -11,12 +11,13 @@ import TechnologyModal from "./TechnologyModal";
 export default function Services() {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
 
   const handleNew = () => {
     setVisible(!visible);
   };
 
-  useEffect(() => {
+  const getAllTechs = () => {
     getTechnologies({
       page: 1,
       pageSize: 20
@@ -30,14 +31,26 @@ export default function Services() {
           category: tech.category.map(item => item.title).join(","),
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
-          action: <ActionButtons record={tech} type="technology"/>,
+          action: <ActionButtons record={tech} type="technology" statusChange={statusChanged}
+                                 setStatusChanged={setStatusChanged}/>,
           _cellProps: {class: {scope: 'row'}},
           _props: {color: 'default'},
         })
       )
       setItems(tempItems);
     })
+  }
+
+  useEffect(() => {
+    getAllTechs();
   }, []);
+
+  useEffect(() => {
+    if (statusChanged) {
+      getAllTechs();
+    }
+    setStatusChanged(false);
+  }, [statusChanged]);
 
   return (
     <div className="border border-dark border-1 rounded p-3">
@@ -45,7 +58,8 @@ export default function Services() {
         <CButton color="primary" onClick={handleNew}>Add New Technology</CButton>
       </div>
       <InfoTable columns={TechnologyColumns} items={items}/>
-      <TechnologyModal visible={visible} setVisible={setVisible}/>
+      <TechnologyModal visible={visible} setVisible={setVisible} statusChanged={statusChanged}
+                       setStatusChanged={setStatusChanged}/>
     </div>
   )
 }

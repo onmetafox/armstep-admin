@@ -11,12 +11,13 @@ import getCompletedURL from "../../libs/getCompleteURL";
 export default function Reviews() {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
 
   const handleNew = () => {
     setVisible(!visible);
   }
 
-  useEffect(() => {
+  const getAllReviews = () => {
     getReviews({
       page: 1,
       pageSize: 20
@@ -34,14 +35,25 @@ export default function Reviews() {
           profile: review.profile,
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
-          action: <ActionButtons record={review} type="review"/>,
+          action: <ActionButtons record={review} type="review" statusChange={statusChanged} setStatusChanged={setStatusChanged}/>,
           _cellProps: {class: {scope: 'row'}},
           _props: {color: 'default'},
         })
       )
       setItems(tempItems);
     })
+  }
+
+  useEffect(() => {
+    getAllReviews();
   }, []);
+
+  useEffect(() => {
+    if (statusChanged) {
+      getAllReviews();
+    }
+    setStatusChanged(false);
+  }, [statusChanged]);
 
   return (
     <div className="border border-dark border-1 rounded p-3">
@@ -49,7 +61,8 @@ export default function Reviews() {
         <CButton color="primary" onClick={handleNew}>Add New Review</CButton>
       </div>
       <InfoTable columns={ReviewColumns} items={items}/>
-      <ReviewModal visible={visible} setVisible={setVisible}/>
+      <ReviewModal visible={visible} setVisible={setVisible} statusChanged={statusChanged}
+                   setStatusChanged={setStatusChanged}/>
     </div>
   )
 }

@@ -3,7 +3,8 @@ import {
   CButton,
   CForm,
   CFormInput,
-  CFormLabel, CFormTextarea,
+  CFormLabel,
+  CFormTextarea,
   CImage,
   CModal,
   CModalBody,
@@ -13,6 +14,7 @@ import {
 } from "@coreui/react";
 import CIcon from '@coreui/icons-react'
 import {cilXCircle} from "@coreui/icons";
+import {useAlertContext} from "../../providers/alertContext";
 import {createProject, projectFileUpload, updateProject} from "../../services/project/project";
 import getCompletedURL from "../../libs/getCompleteURL";
 
@@ -22,7 +24,7 @@ function beautifulArray(value) {
 }
 
 export default function ProjectModal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [title, setTitle] = useState(props.data ? props.data.title : "");
   const [thumb, setThumb] = useState(props.data ? props.data.thumb : "");
   const [img, setImg] = useState(props.data ? props.data.img : "");
@@ -71,6 +73,27 @@ export default function ProjectModal(props) {
     }
   }, [imgFile]);
 
+  const handleInitDialog = () => {
+    setAlertVisible(true);
+    setTitle("");
+    setThumb("");
+    setImg("");
+    setServices("");
+    setIndustry("");
+    setPlatform("");
+    setOverview("");
+    setLink("");
+    setTeam("");
+    setDuration("");
+    setStacks("");
+    setResult("")
+    setClient("");
+    setThumbFile(null);
+    setImgFile(null);
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (title !== "" && thumb !== "" && img !== "" && services !== "" && industry !== "" && platform !== "" && overview !== "" && link !== "" && team !== "" && duration !== "" && stacks !== "" && result !== "" && client !== "") {
       if (props.data) {
@@ -91,9 +114,10 @@ export default function ProjectModal(props) {
             result,
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -116,9 +140,8 @@ export default function ProjectModal(props) {
             result,
             status: 1
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitDialog();
           })
         } catch (err) {
           console.log(err)

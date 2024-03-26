@@ -16,9 +16,10 @@ import {cilXCircle} from "@coreui/icons";
 
 import {createReview, reviewFileUpload, updateReview} from "../../services/review/review";
 import getCompletedURL from "../../libs/getCompleteURL";
+import {useAlertContext} from "../../providers/alertContext";
 
 export default function ReviewModal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [logo, setLogo] = useState(props.data ? props.data.logo : "");
   const [user, setUser] = useState(props.data ? props.data.user : "");
   const [company, setCompany] = useState(props.data ? props.data.company : "");
@@ -61,6 +62,21 @@ export default function ReviewModal(props) {
     }
   }, [avatarFile]);
 
+  const handleInitReviewDialog = () => {
+    setAlertVisible(true);
+    setLogo("");
+    setUser("");
+    setCompany("");
+    setReview("");
+    setName("");
+    setRole("");
+    setProfile("");
+    setAvatarFile(null);
+    setLogoFile(null);
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (logo !== "" && user !== "" && company !== "" && review !== "" && name !== "" && role !== "" && profile !== "") {
       if (props.data) {
@@ -75,9 +91,10 @@ export default function ReviewModal(props) {
             profile,
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -94,9 +111,8 @@ export default function ReviewModal(props) {
             profile,
             status: 1
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitReviewDialog();
           })
         } catch (err) {
           console.log(err)

@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react'
-import {useDispatch} from 'react-redux';
+import React, {useCallback, useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CCard,
@@ -14,21 +14,32 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import {cilLockLocked, cilUser} from '@coreui/icons';
-import {signUpUserAsync} from 'src/services/auth/authSlice';
+import {authMessage, signUpUserAsync} from 'src/services/auth/authSlice';
+import ToastDialog from "../../../components/ToastDialog";
+import {useAlertContext} from "../../../providers/alertContext";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const {setMessage, setAlertVisible} = useAlertContext();
+  const authStatusMsg = useSelector(authMessage);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cfm, setCfm] = useState("");
+
+  useEffect(() => {
+    if (authStatusMsg) {
+      setMessage(authStatusMsg);
+      setAlertVisible(true);
+    }
+  }, [authStatusMsg]);
 
   const createAccount = useCallback(() => {
     dispatch(signUpUserAsync({name, email, password}));
   }, [name, dispatch, email, password, cfm]);
 
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center position-relative">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={9} lg={7} xl={6}>
@@ -82,6 +93,7 @@ const Register = () => {
           </CCol>
         </CRow>
       </CContainer>
+      <ToastDialog/>
     </div>
   )
 }

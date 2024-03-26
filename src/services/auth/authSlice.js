@@ -33,7 +33,7 @@ export const authSlice = createSlice({
         state.msg = "Login Successfully";
         armstepStorage.set('token', action.payload.data.token);
         if (action.payload.data && action.payload.data.token) {
-          window.location.href = "/dashboard";
+          setTimeout(() => window.location.href = "/dashboard", 500);
         }
       })
       .addCase(signUpUserAsync.pending, state => {
@@ -43,7 +43,7 @@ export const authSlice = createSlice({
         state.status = action.payload.status;
         state.data = action.payload.data;
         if (action.payload.data && action.payload.data.user) {
-          window.location.href = "/login";
+          setTimeout(() => window.location.href = "/login", 500);
         }
         state.msg = "Register Successfully";
       })
@@ -51,7 +51,7 @@ export const authSlice = createSlice({
 });
 
 export const getAuth = (state) => state.auth.data;
-export const getStatus = (state) => state.auth.status;
+export const authMessage = (state) => state.auth.msg;
 
 export const {setAuth} = authSlice.actions;
 

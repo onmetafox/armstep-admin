@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {
   CButton,
@@ -16,20 +16,33 @@ import {
 import CIcon from '@coreui/icons-react'
 import {cilLockLocked, cilUser} from '@coreui/icons'
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signInUserAsync} from 'src/services/auth/authSlice';
+import ToastDialog from "../../../components/ToastDialog";
+import {useAlertContext} from "../../../providers/alertContext";
+import {authMessage} from "../../../services/auth/authSlice";
 
 const Login = () => {
+  const {setMessage, setAlertVisible} = useAlertContext();
+  const authStatusMsg = useSelector(authMessage);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (authStatusMsg) {
+      setMessage(authStatusMsg);
+      setAlertVisible(true);
+    }
+  }, [authStatusMsg]);
 
   const signinUser = useCallback(() => {
     dispatch(signInUserAsync({email, password}))
   }, [email, password, dispatch]);
 
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center position-relative">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
@@ -90,6 +103,7 @@ const Login = () => {
           </CCol>
         </CRow>
       </CContainer>
+      <ToastDialog/>
     </div>
   )
 }

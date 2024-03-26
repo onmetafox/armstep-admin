@@ -20,9 +20,10 @@ import {projectFileUpload} from "../../services/project/project";
 import {getCategories} from "../../services/category/category";
 import {createService, updateService} from "../../services/service/service";
 import getCompletedURL from "../../libs/getCompleteURL";
+import {useAlertContext} from "../../providers/alertContext";
 
 export default function ServiceModal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [title, setTitle] = useState(props.data ? props.data.title : "");
   const [subTitle, setSubTitle] = useState(props.data ? props.data.subtitle : "");
   const [icon, setIcon] = useState(props.data ? props.data.icon : "");
@@ -83,6 +84,22 @@ export default function ServiceModal(props) {
     }
   }, [iconFile]);
 
+  const handleInitServiceDialog = () => {
+    setAlertVisible(true);
+    setTitle("");
+    setSubTitle("");
+    setIcon("");
+    setIntro("");
+    setDetail("");
+    setContent("");
+    setSubContent("");
+    setCategories([]);
+    setIconFile(null);
+    setSelectedCategories([]);
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (title !== "" && subTitle !== "" && icon !== "" && intro !== "" && detail !== "" && content !== "" && subContent !== "" && categories !== []) {
       if (props.data) {
@@ -98,9 +115,10 @@ export default function ServiceModal(props) {
             category: categories.map(item => item._id),
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -118,9 +136,8 @@ export default function ServiceModal(props) {
             category: categories.map(item => item._id),
             status: 1,
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitServiceDialog();
           })
         } catch (err) {
           console.log(err)

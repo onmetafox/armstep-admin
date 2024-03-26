@@ -12,12 +12,13 @@ import truncateString from "../../libs/truncateString";
 export default function Services() {
   const [items, setItems] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [statusChanged, setStatusChanged] = useState(false);
 
   const handleNew = () => {
     setVisible(!visible);
   };
 
-  useEffect(() => {
+  const getAllServices = () => {
     getServices({
       page: 1,
       pageSize: 20
@@ -36,14 +37,25 @@ export default function Services() {
           category: service.category.map(item => item.title).join(","),
           status: <div className="d-flex justify-content-center align-items-center"><CFormSwitch
             id="formSwitchCheckDefault" disabled/></div>,
-          action: <ActionButtons record={service} type="service"/>,
+          action: <ActionButtons record={service} type="service" statusChange={statusChanged} setStatusChanged={setStatusChanged}/>,
           _cellProps: {class: {scope: 'row'}},
           _props: {color: 'default'},
         })
       )
       setItems(tempItems);
     })
+  }
+
+  useEffect(() => {
+    getAllServices();
   }, []);
+
+  useEffect(() => {
+    if (statusChanged) {
+      getAllServices();
+    }
+    setStatusChanged(false);
+  }, [statusChanged]);
 
   return (
     <div className="border border-dark border-1 rounded p-3">
@@ -51,7 +63,8 @@ export default function Services() {
         <CButton color="primary" onClick={handleNew}>Add New Service</CButton>
       </div>
       <InfoTable columns={ServiceColumns} items={items}/>
-      <ServiceModal visible={visible} setVisible={setVisible}/>
+      <ServiceModal visible={visible} setVisible={setVisible} statusChanged={statusChanged}
+                    setStatusChanged={setStatusChanged}/>
     </div>
   )
 }

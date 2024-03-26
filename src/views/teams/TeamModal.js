@@ -16,9 +16,10 @@ import {cilXCircle} from "@coreui/icons";
 
 import {createTeam, teamFileUpload, updateTeam} from "../../services/team/team";
 import getCompletedURL from "../../libs/getCompleteURL";
+import {useAlertContext} from "../../providers/alertContext";
 
 export default function TeamModal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [name, setName] = useState(props.data ? props.data.name : "");
   const [role, setRole] = useState(props.data ? props.data.role : "");
   const [imgUrl, setImgUrl] = useState(props.data ? props.data.imgUrl : "");
@@ -70,6 +71,21 @@ export default function TeamModal(props) {
     }
   }, [stackIconFile]);
 
+  const handleInitTeamDialog = () => {
+    setAlertVisible(true);
+    setName("");
+    setRole("");
+    setImgUrl("");
+    setUpwork("");
+    setLinkedin("");
+    setContra("");
+    setAbout("");
+    setStacks([]);
+    setAvatarFile(null);
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (name !== "" && role !== "" && imgUrl !== "" && upwork !== "" && linkedin !== "" && contra !== "" && about !== "" && stacks !== []) {
       if (props.data) {
@@ -85,9 +101,10 @@ export default function TeamModal(props) {
             stacks,
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -105,9 +122,8 @@ export default function TeamModal(props) {
             stacks,
             status: 1
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitTeamDialog();
           })
         } catch (err) {
           console.log(err)

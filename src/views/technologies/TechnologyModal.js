@@ -18,9 +18,10 @@ import {MultiSelect} from "react-multi-select-component";
 import {getCategories} from "../../services/category/category";
 import getCompletedURL from "../../libs/getCompleteURL";
 import {createTechnology, techFileUpload, updateTechnology} from "../../services/technology/technology";
+import {useAlertContext} from "../../providers/alertContext";
 
 export default function TechnologyModal(props) {
-
+  const {setMessage, setAlertVisible} = useAlertContext();
   const [title, setTitle] = useState(props.data ? props.data.title : "");
   const [logo, setLogo] = useState(props.data ? props.data.logo : "");
   const [logoFile, setLogoFile] = useState(null);
@@ -76,6 +77,17 @@ export default function TechnologyModal(props) {
     }
   }, [logoFile]);
 
+  const handleInitTechDialog = () => {
+    setAlertVisible(true);
+    setTitle("");
+    setLogo("");
+    setCategories([]);
+    setSelectedCategories([]);
+    setLogoFile("");
+    props.setVisible(false);
+    props.setStatusChanged(true);
+  }
+
   const handleSave = () => {
     if (title !== "" && logo !== "" && categories !== []) {
       if (props.data) {
@@ -86,9 +98,10 @@ export default function TechnologyModal(props) {
             category: categories.map(item => item._id),
             status: 1
           }).then(res => {
-            console.log(res.message);
+            setMessage(res.data.msg);
+            setAlertVisible(true);
             props.setVisible(false);
-            window.location.reload();
+            props.setStatusChanged(true);
           })
         } catch (err) {
           console.log(err)
@@ -101,9 +114,8 @@ export default function TechnologyModal(props) {
             category: categories.map(item => item._id),
             status: 1,
           }).then(res => {
-            console.log(res.message);
-            props.setVisible(false);
-            window.location.reload();
+            setMessage(res.data.msg);
+            handleInitTechDialog();
           })
         } catch (err) {
           console.log(err)
